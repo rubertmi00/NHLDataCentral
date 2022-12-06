@@ -3,14 +3,13 @@ import json
 from src import db
 
 
-customers = Blueprint('customers', __name__)
+agents = Blueprint('agents', __name__)
 
-# Get all customers from the DB
-@customers.route('/customers', methods=['GET'])
-def get_customers():
+# Get all arenas from the DB
+@agents.route('/arenas', methods=['GET'])
+def get_arenas():
     cursor = db.get_db().cursor()
-    cursor.execute('select customerNumber, customerName,\
-        creditLimit from customers')
+    cursor.execute('select ArenaName from Arena')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -21,11 +20,11 @@ def get_customers():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get customer detail for customer with particular userID
-@customers.route('/customers/<userID>', methods=['GET'])
-def get_customer(userID):
+# Get arena details for particular arenaName
+@agents.route('/arenas/<arenaName>', methods=['GET'])
+def get_arena(arenaName):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from customers where customerNumber = {0}'.format(userID))
+    cursor.execute("select * from Arena where ArenaName = '{0}'".format(arenaName))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
