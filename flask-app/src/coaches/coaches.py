@@ -50,6 +50,21 @@ def get_player_stats(playerID):
     the_response.mimetype = 'application/json'
     return the_response
 
+# Get details of fights involving a particular player
+@coaches.route('/players/<playerID>/fights', methods=['GET'])
+def get_player_fights(playerID):
+    cursor = db.get_db().cursor()
+    cursor.execute("select * from Fights where (Player1 = '{0}') or (Player2 = '{0}')".format(playerID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
 # Add a player to the DB
 @coaches.route('/addplayer', methods=['POST'])
 def add_player():
