@@ -49,3 +49,6 @@ This API consists of 14 routes, including two capable of handling POST requests.
 
 ## Bootstrap Data:
 This repository features a bootstrap SQL to begin populating the database. This bootstrap will add 32 records each to the Team, Coach, Player, and Arena tables (one for each NHL team), as well as 160 records to the StatsBySeason and RecordsBySeason table (5 years worth for each player/team). Additionally, about 70 fights have been added to the Fight table.
+
+## Frontend:
+The associated frontend for this project can be found on Mark Fontenot's AppSmith server, under the name NHL Data Central
